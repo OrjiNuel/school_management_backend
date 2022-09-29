@@ -43,7 +43,7 @@ To run this project, you will need to add the following environment variables to
 - Set up your postgres database if you haven't. Steps are in the link below
     https://www.postgresql.org/docs/
 
--   Create a database schema preferrably for consistency sake with the name `picondb_local`
+-   Create a database schema preferrably for consistency sake with the name `school_mgtdb`
 -   Input your database url in your env file as 
     DATABASE_URL= `postgresql://<username>:<password>@localhost:5432/<database_schema_name>`
     
