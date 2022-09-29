@@ -1,5 +1,5 @@
 export class FieldError {
-  field: string;
+  field: string
 
-  message: string;
+  message: string
 }

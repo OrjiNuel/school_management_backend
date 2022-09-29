@@ -1,5 +1,5 @@
-import createServer from "./utils/serverUtils";
+import createServer from './utils/serverUtils'
 
-const app = createServer();
+const app = createServer()
 
-export default app;
+export default app

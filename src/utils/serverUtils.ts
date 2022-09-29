@@ -1,41 +1,41 @@
-import cors from "cors";
-import express, { NextFunction, Request, Response } from "express";
-import morgan from "morgan";
-import general from "../constants/general";
-import router from "../routes";
+import cors from 'cors'
+import express, { NextFunction, Request, Response } from 'express'
+import morgan from 'morgan'
+import general from '../constants/general'
+import router from '../routes'
 import {
   errorHandler,
   methodNotAllowed,
   notFound,
-} from "./../middlewares/ErrorHandler";
+} from './../middlewares/ErrorHandler'
 
 const createServer = () => {
-  const app = express();
+  const app = express()
 
-  app.use(express.urlencoded({ extended: true }));
+  app.use(express.urlencoded({ extended: true }))
 
   // To enable logging during development / staging
-  if (!general.PRODUCTION) app.use(morgan("dev"));
+  if (!general.PRODUCTION) app.use(morgan('dev'))
 
-  app.set("trust proxy", 1);
+  app.set('trust proxy', 1)
 
   app.use(
     cors({
       origin: general.CORS_ORIGIN,
       credentials: true,
-      allowedHeaders: ["Content-Type", "Accept", "Authorization"],
+      allowedHeaders: ['Content-Type', 'Accept'],
     })
-  );
+  )
 
-  app.use(express.json());
+  app.use(express.json())
 
-  app.use(router);
+  app.use(router)
 
-  app.use(notFound);
+  app.use(notFound)
 
-  app.use(methodNotAllowed);
+  app.use(methodNotAllowed)
 
-  app.use(errorHandler);
+  app.use(errorHandler)
 
   app.use(function (
     err: any,
@@ -43,11 +43,11 @@ const createServer = () => {
     res: Response,
     next: NextFunction
   ) {
-    res.status(err.status || 500).json({ error: err.message });
-    next();
-  });
+    res.status(err.status || 500).json({ error: err.message })
+    next()
+  })
 
-  return app;
-};
+  return app
+}
 
-export default createServer;
+export default createServer

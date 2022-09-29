@@ -14,7 +14,7 @@
     "check-types": "tsc --pretty --noEmit",
     "check-format": "prettier --check '**/*.{ts,tsx,js,jsx}' --ignore-path .prettierignore",
     "check-lint": "eslint . --ext ts --ext tsx --ext js",
-    "format": "prettier --write '**/*.{ts,tsx,js}'",
+    "format": "prettier --write --ignore-path .gitignore \"./**/*.{js,jsx,ts,tsx,json,css}\"",
     "test-all": "yarn run check-types && yarn run check-lint && yarn run build",
     "generate-migration": "yarn build && npx typeorm-ts-node-esm migration:generate src/migrations/migration -d src/constants/data-source.ts",
     "run-migrations": "yarn build && npx typeorm-ts-node-esm migration:run -d src/constants/data-source.ts",

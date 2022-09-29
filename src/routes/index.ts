@@ -1,12 +1,12 @@
-import express from "express";
-import v2 from "./v2";
+import express from 'express'
+import v2 from './v2'
 
-const router = express.Router();
+const router = express.Router()
 
-router.get("/", (_req, res) => {
-  res.send("Welcome to SCHOOL MANAGEMENT REST API SERVICE!!!");
-});
+router.get('/', (_req, res) => {
+  res.send('Welcome to SCHOOL MANAGEMENT REST API SERVICE!!!')
+})
 
-router.use(v2);
+router.use(v2)
 
-export default router;
+export default router

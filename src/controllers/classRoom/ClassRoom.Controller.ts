@@ -1,23 +1,23 @@
 import { NextFunction, Request, Response } from 'express'
 import createHttpError from 'http-errors'
 import {
-  createGradeService,
-  deleteGradeService,
-  getAllGradesService,
-  getGradeService,
-  updateGradeService,
-} from '../../services/grade/Grade.Service'
+  createClassRoomService,
+  deleteClassRoomService,
+  getAllClassRoomsService,
+  getClassRoomService,
+  updateClassRoomService,
+} from '../../services/classRoom/ClassRoom.Service'
 
-//  Get all grades
-export async function getAllGrades(
+//  Get all Class Rooms
+export async function getAllClassRooms(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   try {
     const { skip, take, query } = req.query
-    return res.status(200).send(
-      await getAllGradesService({
+    return res.sendStatus(200).send(
+      await getAllClassRoomsService({
         skip: Number(skip ?? 0),
         take: Number(take ?? 0),
         query: query as string,
@@ -35,16 +35,17 @@ export async function getAllGrades(
   }
 }
 
-// Get single grade by id
-export async function getGrade(
+// Get single Class Room by id
+export async function getClassRoom(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   try {
-    const result = await getGradeService(req.params['id'])
-    if (!result.grade) return next(createHttpError(404, 'Grade not found'))
-    return res.status(200).send(result)
+    const result = await getClassRoomService(req.params['id'])
+    if (!result.classRoom)
+      return next(createHttpError(404, 'ClassRoom not found'))
+    return res.sendStatus(200).send(result)
   } catch (error) {
     let message
     if (error instanceof Error) {
@@ -53,21 +54,21 @@ export async function getGrade(
       message = String(error)
     }
     if (message.includes('invalid input syntax')) {
-      message = 'Invalid grade id supplied'
+      message = 'Invalid ClassRoom id supplied'
       return next(createHttpError(400, message))
     }
     return next(createHttpError(500, message))
   }
 }
 
-// Create grade
-export async function createGrade(
+// Create ClassRoom
+export async function createClassRoom(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   try {
-    return res.sendStatus(201).send(await createGradeService(req.body))
+    return res.sendStatus(201).send(await createClassRoomService(req.body))
   } catch (error: any) {
     let message
     if (error instanceof Error) {
@@ -80,7 +81,7 @@ export async function createGrade(
       message.includes('duplicate key value violates unique constraint') &&
       error.detail.includes('name')
     ) {
-      message = 'A grade with this name already exists'
+      message = 'A ClassRoom with this name already exists'
       return next(createHttpError(400, message))
     }
 
@@ -88,16 +89,17 @@ export async function createGrade(
   }
 }
 
-// Update Grade
-export async function updateGrade(
+// Update ClassRoom
+export async function updateClassRoom(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   try {
-    const result = await updateGradeService(req.params['id'], req.body)
-    if (!result.grade) return next(createHttpError(404, 'Grade not found'))
-    return res.send(200).send(result)
+    const result = await updateClassRoomService(req.params['id'], req.body)
+    if (!result.classRoom)
+      return next(createHttpError(404, 'ClassRoom not found'))
+    return res.sendStatus(200).send(result)
   } catch (error: any) {
     let message
     if (error instanceof Error) {
@@ -110,28 +112,29 @@ export async function updateGrade(
       message.includes('duplicate key value violates unique constraint') &&
       error.detail.includes('name')
     ) {
-      message = 'A grade with this name already exists'
+      message = 'A ClassRoom with this name already exists'
       return next(createHttpError(400, message))
     }
 
     if (message.includes('invalid input syntax')) {
-      message = 'Invalid grade id supplied'
+      message = 'Invalid ClassRoom id supplied'
       return next(createHttpError(400, message))
     }
     return next(createHttpError(500, 'Something went wrong, try again later'))
   }
 }
 
-// Delete grade
-export async function deleteGrade(
+// Delete class room
+export async function deleteClassRoom(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   try {
-    const result = await deleteGradeService(req.params.id)
-    if (!result.grade) return next(createHttpError(404, 'Grade not found'))
-    return res.status(200).send(result)
+    const result = await deleteClassRoomService(req.params.id)
+    if (!result.classRoom)
+      return next(createHttpError(404, 'ClassRoom not found'))
+    return res.sendStatus(200).send(result)
   } catch (error) {
     let message
     if (error instanceof Error) {
@@ -140,7 +143,7 @@ export async function deleteGrade(
       message = String(error)
     }
     if (message.includes('invalid input syntax')) {
-      message = 'Invalid batch id supplied'
+      message = 'Invalid class room id supplied'
       return next(createHttpError(400, message))
     }
     return next(createHttpError(500, 'Something went wrong, try again later'))

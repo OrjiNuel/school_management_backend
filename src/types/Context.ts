@@ -1,11 +1,11 @@
-import { number, object } from "zod";
+import { number, object } from 'zod'
 
 export class PaginatedInputType {
-  skip?: number;
+  skip?: number
 
-  take?: number;
+  take?: number
 
-  query?: string;
+  query?: string
 }
 
 export const paginatedInputSchema = object({
@@ -13,9 +13,9 @@ export const paginatedInputSchema = object({
     skip: number(),
     take: number(),
   }),
-});
+})
 
 export class SuccessResponse {
-  data: any;
-  count?: number;
+  data: any
+  count?: number
 }

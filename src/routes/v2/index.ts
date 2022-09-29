@@ -1,12 +1,15 @@
-import express from 'express';
-import gradeRoutes from './grade.routes';
+import express from 'express'
+import classRoomRoutes from './classRoom.routes'
+import gradeRoutes from './grade.routes'
 
-const router = express.Router();
+const router = express.Router()
 
-router.get("/v2", (_req, res) => {
-    res.send("SCHOOL MANAGEMENT API V2!");
-});
+router.get('/v2', (_req, res) => {
+  res.send('SCHOOL MANAGEMENT API V2!')
+})
 
-router.use("/v2/grades", gradeRoutes);
+router.use('/v2/grades', gradeRoutes)
 
-export default router;
+router.use('/v2/classRooms', classRoomRoutes)
+
+export default router
